@@ -23,10 +23,10 @@ class Chat extends MyDB {
   }
 
   public function getMessage($com_id) {
-    $sql = "select message from messages INNER JOIN communities ON communities.id = messages.com_id";
+    $sql = "select message from messages where com_id = :com_id";
     $stmt = $this->_pdo ->prepare($sql);
+    $stmt->bindParam(':com_id', $com_id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll();
   }
-
 }
